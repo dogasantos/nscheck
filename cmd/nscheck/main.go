@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"strings"
 	"sync"
+
+	"github.com/dogasantos/nscheck/pkg/runner/nscheck"
 )
 
 type Options struct {
