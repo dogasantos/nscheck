@@ -42,7 +42,7 @@ func CheckIpv4Type(ipaddr string) string {
 	
 	return result
 }
-func doResolve(hostname string, resolvers []string){
+func doResolve(hostname string, resolvers []string) []string{
 	var responseValue []string
 
 	dnsClient := retryabledns.New(resolvers, 2)
