@@ -7,7 +7,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/dogasantos/nscheck/pkg/runner/nscheck"
+	nscheck "github.com/dogasantos/nscheck/pkg/runner"
 )
 
 // This is a nice comment to make lint happy. hello lint, i'm here!
