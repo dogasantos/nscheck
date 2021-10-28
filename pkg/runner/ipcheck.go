@@ -16,10 +16,7 @@ var defaultResolvers = []string{
 	"8.8.4.4:53", // Google
 }
 
-/*
-Line 20: warning: exported function  should have comment or be unexported (golint)
-now you have a comment.
-*/
+// This is a nice comment to make lint happy. hello lint, i'm here!
 func CheckIpv4Type(ipaddr string) string {
 	var result string
 	ipv4 := netaddr.MustNewIPAddress(ipaddr)
@@ -53,10 +50,8 @@ func doResolve(hostname string, resolvers []string){
 	responseValue = dnsResponse.A
 	return responseValue
 }
-/*
-Line 20: warning: exported function  should have comment or be unexported (golint)
-now you have a comment.
-*/
+
+// This is a nice comment to make lint happy. hello lint, i'm here!
 func CheckResolvers(resolvers []string, TrustedNs string, wg * sync.WaitGroup, verbose bool) {
 	var iptype string
 	var tr []string

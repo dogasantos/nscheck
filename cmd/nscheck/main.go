@@ -10,8 +10,8 @@ import (
 	"github.com/dogasantos/nscheck/pkg/runner/nscheck"
 )
 
-
-type options struct {
+// This is a nice comment to make lint happy. hello lint, i'm here!
+type Options struct {
 	ResolverFile		string
 	TrustedNs			string
 	Version				bool
