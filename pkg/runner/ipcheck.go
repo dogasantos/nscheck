@@ -53,7 +53,7 @@ func doResolve(hostname string, resolvers []string) []string{
 
 // This is a nice comment to make lint happy. hello lint, i'm here!
 func CheckResolvers(resolvers []string, TrustedNs string, wg * sync.WaitGroup, verbose bool) {
-	var iptype string
+	//var iptype string
 	var tr []string
 	defer wg.Done()
 	
