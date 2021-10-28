@@ -51,10 +51,10 @@ func main() {
 				fmt.Printf("[*] Trusted NS record: %s\n",options.TrustedNs)
 			}
 		}
-		
-		for _, prefix := range resolvers {
+
+		for _, resolver := range resolvers {
 			wg.Add(1)
-			go nscheck.CheckResolvers(resolvers, options.TrustedNs, &wg, options.Verbose)
+			go nscheck.CheckResolver(resolver, options.TrustedNs, &wg, options.Verbose)
 		}
 		wg.Wait()
 		if options.Verbose == true {
