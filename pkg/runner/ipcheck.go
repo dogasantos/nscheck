@@ -17,7 +17,7 @@ var defaultResolvers = []string{
 }
 
 /*
-Line 20: warning: exported function CheckIpv4Type should have comment or be unexported (golint)
+Line 20: warning: exported function  should have comment or be unexported (golint)
 now you have a comment.
 */
 func CheckIpv4Type(ipaddr string) string {
@@ -53,7 +53,10 @@ func doResolve(hostname string, resolvers []string){
 	responseValue = dnsResponse.A
 	return responseValue
 }
-
+/*
+Line 20: warning: exported function  should have comment or be unexported (golint)
+now you have a comment.
+*/
 func CheckResolvers(resolvers []string, TrustedNs string, wg * sync.WaitGroup, verbose bool) {
 	var iptype string
 	var tr []string

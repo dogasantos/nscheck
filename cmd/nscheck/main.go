@@ -10,7 +10,8 @@ import (
 	"github.com/dogasantos/nscheck/pkg/runner/nscheck"
 )
 
-type Options struct {
+
+type options struct {
 	ResolverFile		string
 	TrustedNs			string
 	Version				bool
