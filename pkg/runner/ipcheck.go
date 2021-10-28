@@ -16,7 +16,10 @@ var defaultResolvers = []string{
 	"8.8.4.4:53", // Google
 }
 
-
+/*
+Line 20: warning: exported function CheckIpv4Type should have comment or be unexported (golint)
+now you have a comment.
+*/
 func CheckIpv4Type(ipaddr string) string {
 	var result string
 	ipv4 := netaddr.MustNewIPAddress(ipaddr)
@@ -88,5 +91,5 @@ func CheckResolvers(resolvers []string, TrustedNs string, wg * sync.WaitGroup, v
 	}
 	*/
 	fmt.Println(rdata)
-	
+
 }
