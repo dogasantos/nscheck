@@ -6,7 +6,8 @@ import (
 
 	"github.com/miekg/dns"
 	"github.com/projectdiscovery/retryabledns"
-	"github.com/xgfone/netaddr"
+	//"github.com/xgfone/netaddr"
+	"github.com/xgfone/go-netaddr"
 )
 
 var defaultResolvers = []string{
