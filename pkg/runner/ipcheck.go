@@ -6,6 +6,7 @@ import (
 
 	"github.com/miekg/dns"
 	"github.com/projectdiscovery/retryabledns"
+
 	//"github.com/xgfone/netaddr"
 	"github.com/xgfone/go-netaddr"
 )
@@ -21,73 +22,72 @@ var defaultResolvers = []string{
 func CheckIpv4Type(ipaddr string) string {
 	var result string
 	ipv4 := netaddr.MustNewIPAddress(ipaddr)
-		if ipv4.IsIPv4() {
-			if ipv4.IsLoopback() {
-				result = fmt.Sprintf("%s:loopback",ipaddr)
+	if ipv4.IsIPv4() {
+		if ipv4.IsLoopback() {
+			result = fmt.Sprintf("%s:loopback", ipaddr)
+		} else {
+			if ipv4.IsReserved() {
+				result = fmt.Sprintf("%s:reserved", ipaddr)
 			} else {
-				if ipv4.IsReserved() {
-					result = fmt.Sprintf("%s:reserved",ipaddr)
-				} else {
 
-					if ipv4.IsPrivate() {
-						result = fmt.Sprintf("%s:private",ipaddr)
-					} else {
-						result = fmt.Sprintf("%s:public",ipaddr)
-					}
+				if ipv4.IsPrivate() {
+					result = fmt.Sprintf("%s:private", ipaddr)
+				} else {
+					result = fmt.Sprintf("%s:public", ipaddr)
 				}
 			}
-			
-		} else {
-			result = fmt.Sprintf("%s:invalid",ipaddr)
 		}
-	
+
+	} else {
+		result = fmt.Sprintf("%s:invalid", ipaddr)
+	}
+
 	return result
 }
-func doResolve(hostname string, resolvers []string) []string{
+func doResolve(hostname string, resolvers []string) []string {
 	var responseValue []string
 
-	dnsClient := retryabledns.New(resolvers, 2)
+	dnsClient, _ := retryabledns.New(resolvers, 2)
 	dnsResponse, _ := dnsClient.Query(hostname, dns.TypeA)
 	responseValue = dnsResponse.A
 	return responseValue
 }
 
 // This is a nice comment to make lint happy. hello lint, i'm here!
-func CheckResolver(resolver string, TrustedNs string, wg * sync.WaitGroup, verbose bool) {
+func CheckResolver(resolver string, TrustedNs string, wg *sync.WaitGroup, verbose bool) {
 	//var iptype string
 	var tr []string
 	defer wg.Done()
-	
+
 	// 1) verificar trusted host com trusted server, pegar o ip
-	if len(TrustedNs) >0 {
+	if len(TrustedNs) > 0 {
 		tr[0] = TrustedNs
 	} else {
 		tr = defaultResolvers
 	}
-	rdata := doResolve("nscheck.pingback.me",tr)
-
+	rdata := doResolve("nscheck.pingback.me", tr)
 
 	/*
-	for _, ipaddr := range resolvers {
-		iptype = CheckIpv4Type(ipaddr)
-		if strings.Contains("public",strings.Split(iptype,":")[1]) {
-			if strings.Split(ipaddr, ".")[0] == strings.Split(prefix, ".")[0] {
-				if verbose == true{
-					fmt.Printf("  + Checking: %s and %s\n",ipaddr,prefix)
-				}
-				// testa se o ip eh valido/invalido/publico/
-				if len(ipaddr) > 4 {
-					result:=CheckIp(ipaddr)
-					if strings.Contains("public",strings.Split(result, ":")[1]) {
-						iptest := net.ParseIP(ipaddr)
-						if cidrAddr.Contains(iptest) == true {
-							fmt.Println(ipaddr)
+		for _, ipaddr := range resolvers {
+			iptype = CheckIpv4Type(ipaddr)
+			if strings.Contains("public",strings.Split(iptype,":")[1]) {
+				if strings.Split(ipaddr, ".")[0] == strings.Split(prefix, ".")[0] {
+					if verbose == true{
+						fmt.Printf("  + Checking: %s and %s\n",ipaddr,prefix)
+					}
+					// testa se o ip eh valido/invalido/publico/
+					if len(ipaddr) > 4 {
+						result:=CheckIp(ipaddr)
+						if strings.Contains("public",strings.Split(result, ":")[1]) {
+							iptest := net.ParseIP(ipaddr)
+							if cidrAddr.Contains(iptest) == true {
+								fmt.Println(ipaddr)
+							}
 						}
 					}
 				}
 			}
 		}
-	}
 	*/
 	fmt.Println(rdata)
 
